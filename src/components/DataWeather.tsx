@@ -1,21 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
-import * as Ri from 'react-icons/ri'
+import { Data } from './config'
 
 interface Props {
     weather: {
-        main:{temp:number,humidity:number,feels_like:number},
-        name:string,
-        weather:{[key:number]:{description:string}},
-        visibility:number,
-        wind:{speed:number}
-    }|''
+        main: { temp: number, humidity: number, feels_like: number},
+        name: string,
+        weather: { [key: number]: { description: string } },
+        visibility: number,
+        wind: { speed: number },
+        timezone:number
+    } | '',
+    time:string,
+    date:string
 }
 
 
-export default function DataWeather({ weather }: Props) {
+export default function DataWeather({ weather,time,date }: Props) {
     console.log(weather);
-    
+
     return (
         <>
             {weather ? <DataWeatherStyled>
@@ -23,12 +26,12 @@ export default function DataWeather({ weather }: Props) {
                     <h1 className='temp'>{Math.round(weather.main.temp)}°</h1>
                     <div>
                         <h2 className='name'>{weather.name}</h2>
-                        <p className='date'>18:53:34 - Sunday, 16/04</p>
+                        <p className='date'>{time} - {date}</p>
                     </div>
                 </div>
                 <div className='dataWeather'>
                     <div className='weather'>
-                        <span><Ri.RiSunLine /></span>
+                        <span>{Data[weather.weather[0].main].icon}</span>
                         <p>{weather.weather[0].description}</p>
                     </div>
                     <div className='DataWeatherfirst'>
@@ -37,7 +40,7 @@ export default function DataWeather({ weather }: Props) {
                         <p>humidity: {weather.main.humidity}%</p>
                     </div>
                     <div className='DataWeathersecond'>
-                        <p>Visibility: {(weather.visibility/1000).toFixed(1)}km</p> {/*Deixar o valor como 10.0 (cada valor passado dentro do "toFixed" é q quantidade de números depois da vírgula) */}
+                        <p>Visibility: {(weather.visibility / 1000).toFixed(1)}km</p> {/*Deixar o valor como 10.0 (cada valor passado dentro do "toFixed" é q quantidade de números depois da vírgula) */}
                         <p>|</p>
                         <p>Wind: {(weather.wind.speed).toFixed(1)}m/s</p>
                     </div>
