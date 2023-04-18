@@ -149,7 +149,7 @@ const ContainerStyled = styled.div`
         backdrop-filter: blur(34px);
         position: absolute;
         width: 85%;
-        height: 70%;
+        height: 500px;
         top: 50%;
         left: 50%;
         transform: translate(-50%,-50%);
