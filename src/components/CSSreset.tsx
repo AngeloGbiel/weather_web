@@ -14,7 +14,8 @@ export const CSSreset = createGlobalStyle`
     body{
         background:no-repeat left 0px top 15% url("fundo.png");
         background-size: 100%;
-        /* background-repeat:no-repeat; */
-        /* background-position:0px 15%; */
+        @media (max-width:600px){
+            background: #278AFF;
+        }
     }
 `
