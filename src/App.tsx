@@ -10,8 +10,8 @@ export default function App() {
   const [date, setDate] = useState('')
   const key_secret = process.env.API_OPEN_WEATHER_KEY
   console.log(key_secret)
-  const Key = "d87de9bc51b347eff2b1eb6d3b66146c"
-
+  //const Key = "d87de9bc51b347eff2b1eb6d3b66146c"
+  const Key = process.env.API_OPEN_WEATHER_KEY;
   const NewDate = (Timezone:number) =>{
     const date = new Date()
     let h = date.getUTCHours() + Timezone
