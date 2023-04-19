@@ -10,6 +10,7 @@ export default function App() {
   const [date, setDate] = useState('')
   const Key = "d87de9bc51b347eff2b1eb6d3b66146c"
   const API_KEY = ${{secrets.API_OPEN_WEATHER_KEY}}
+  console.log(API_KEY)
 
   const NewDate = (Timezone:number) =>{
     const date = new Date()
