@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CSSreset } from "./components/CSSreset";
 import DataWeather from "./components/DataWeather";
-import styled from "styled-components";
 export default function App() {
   // const REACT_APP_MY_KEY_WEATHER = process.env.REACT_APP_MY_KEY_WEATHER
   const [city, setCity] = useState<string>("")
