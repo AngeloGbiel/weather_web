@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
-interface Props{
-    photoCity:string
+interface Props {
+    photoCity: string
 }
 
 export const CSSreset = createGlobalStyle`
@@ -12,10 +12,6 @@ export const CSSreset = createGlobalStyle`
         font-family: 'Inter', sans-serif;
     }
     body{
-        background:no-repeat left 0px top 15% url("fundo.png");
-        background-size: 100%;
-        @media (max-width:600px){
-            background: #278AFF;
-        }
+        background: #278AFF;
     }
 `

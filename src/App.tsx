@@ -12,49 +12,59 @@ export default function App() {
   const Key = "d87de9bc51b347eff2b1eb6d3b66146c"
 
 
+  const NewDate = (Timezone:number) =>{
+    const date = new Date()
+    let h = date.getUTCHours() + Timezone
+    let m = date.getMinutes() //pegar o horário de Greenwich 
+    let s = date.getSeconds()
+    let day = date.getUTCDate()
+    let month = date.getUTCMonth()
+    let dayofweek = date.getUTCDay()
+    let nameofday = ''
+    if (h >= 24) {
+      h = h - 24
+      day++
+      dayofweek++
+    }
+    switch (dayofweek) {
+      case 1:
+        nameofday = 'Segunda'
+        break;
+      case 2:
+        nameofday = 'terça'
+        break;
+      case 3:
+        nameofday = 'Quarta'
+        break;
+      case 4:
+        nameofday = 'Quinta'
+        break;
+      case 5:
+        nameofday = 'Sexta'
+        break;
+      case 6:
+        nameofday = 'Sábado'
+        break;
+      case 7:
+        nameofday = 'Domingo'
+        break;
+      default:
+        break;
+    }
+    setDate(`${nameofday}, ${day}/${month}`)
+    setTime(`${h}:${m}:${s}`)
+  }
+
   const positionCurrent = () => {
     navigator.geolocation.getCurrentPosition(function (position) {
       const lat = position.coords.latitude;
       const lon = position.coords.longitude
-      const DataWeather = fetch(`https://api.openweathermap.org/data/2.5/weather?units=metric&lat=${lat}&lon=${lon}&appid=${Key}`).
+      const DataWeather = fetch(`https://api.openweathermap.org/data/2.5/weather?units=metric&lat=${lat}&lon=${lon}&appid=${Key}&lang=pt_br`).
         then((data) => {
           const resWeather = data.json().
             then((dataWeather) => {
-              const date = new Date()
-              let h = date.getHours()
-              let m = date.getMinutes() //pegar o horário de Greenwich 
-              let s = date.getSeconds()
-              let day = date.getDate()
-              let month = date.getMonth()
-              let dayofweek = date.getDay()
-              let nameofday = ''
-              switch (dayofweek) {
-                case 1:
-                  nameofday = 'Segunda'
-                  break;
-                case 2:
-                  nameofday = 'terça'
-                  break;
-                case 3:
-                  nameofday = 'Quarta'
-                  break;
-                case 4:
-                  nameofday = 'Quinta'
-                  break;
-                case 5:
-                  nameofday = 'Sexta'
-                  break;
-                case 6:
-                  nameofday = 'Sábado'
-                  break;
-                case 7:
-                  nameofday = 'Domingo'
-                  break;
-                default:
-                  break;
-              }
-              setDate(`${nameofday}, ${day}/${month}`)
-              setTime(`${h}:${m}:${s}`)
+              const Timezone = dataWeather.timezone / 3600;
+              NewDate(Timezone)
               setWeather(dataWeather)
             })
         })
@@ -69,51 +79,10 @@ export default function App() {
   const Weather = async () => {
     const DataWeather = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${Key}&lang=pt_br`)
     const resWeather = await DataWeather.json()
-    console.log(resWeather)
     if (resWeather.cod != '404') {
       setWeather(resWeather)
       const Timezone = resWeather.timezone / 3600;
-      const date = new Date()
-      let h = date.getUTCHours() + Timezone
-      let m = date.getMinutes() //pegar o horário de Greenwich 
-      let s = date.getSeconds()
-      let day = date.getUTCDate()
-      let month = date.getUTCMonth()
-      let dayofweek = date.getUTCDay()
-      let nameofday = ''
-      if (h >= 24) {
-        h = h - 24
-        console.log(h)
-        day++
-        dayofweek++
-      }
-      switch (dayofweek) {
-        case 1:
-          nameofday = 'Segunda'
-          break;
-        case 2:
-          nameofday = 'terça'
-          break;
-        case 3:
-          nameofday = 'Quarta'
-          break;
-        case 4:
-          nameofday = 'Quinta'
-          break;
-        case 5:
-          nameofday = 'Sexta'
-          break;
-        case 6:
-          nameofday = 'Sábado'
-          break;
-        case 7:
-          nameofday = 'Domingo'
-          break;
-        default:
-          break;
-      }
-      setDate(`${nameofday}, ${day}/${month}`)
-      setTime(`${h}:${m}:${s}`)
+      NewDate(Timezone)
     } else {
       positionCurrent()
       alert('Digite o nome corretamente (sem usar vírgulas)')
@@ -123,7 +92,7 @@ export default function App() {
   return (
     <>
       <CSSreset />
-      <DataWeather setCity={setCity} date={date} Weather={Weather} time={time} weather={weather || ""} />
+      <DataWeather city={city} setCity={setCity} date={date} Weather={Weather} time={time} weather={weather || ""} />
     </>
   )
 }
