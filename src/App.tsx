@@ -9,7 +9,7 @@ export default function App() {
   const [time, setTime] = useState('')
   const [date, setDate] = useState('')
   const Key = "d87de9bc51b347eff2b1eb6d3b66146c"
-  API_KEY = ${{ secrets.API_KEY }}
+  const API_KEY = ${{ secrets.API_KEY }}
   console.log(API_KEY)
 
   const NewDate = (Timezone:number) =>{
