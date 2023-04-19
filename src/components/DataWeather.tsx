@@ -117,17 +117,4 @@ const ContainerWeather = styled(Container)`
             font-size: 1rem;
         }
     }
-    .weatherInfo{
-        display: flex;
-        flex-direction: column;
-        gap: .5rem;
-        .weatherFeelsLikeHumidity,.weatherVisibilityWind{
-            /* background-color: red; */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5%;
-        }
-
-    }
 `
