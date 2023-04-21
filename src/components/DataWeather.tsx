@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Data } from './config'
 import * as Bs from 'react-icons/bs'
 import * as Ri from 'react-icons/ri'
 import { Button, CircularProgress, Container, Grid, Stack, TextField } from '@mui/material'
@@ -17,12 +16,12 @@ interface Props {
     time: string,
     date: string
     setCity: (city: string) => void,
-    city:string,
+    city: string,
     Weather: () => void
 }
 
 
-export default function DataWeather({ weather, time, date, setCity, Weather,city }: Props) {
+export default function DataWeather({ weather, time, date, setCity, Weather, city }: Props) {
     const Enter = (key: React.KeyboardEvent<HTMLDivElement>) => {
         if (key.key == 'Enter') {
             Weather()
@@ -52,7 +51,8 @@ export default function DataWeather({ weather, time, date, setCity, Weather,city
                         weather.weather[0].main == "Clear" ?
                             <Ri.RiSunLine /> : weather.weather[0].main == "Clouds" ?
                                 <Bs.BsCloudSunFill /> : weather.weather[0].main == "Rain" ?
-                                    <Bs.BsFillCloudRainFill /> : null
+                                    <Bs.BsFillCloudRainFill /> : weather.weather[0].main == "Snow" ?
+                                        <Bs.BsFillCloudSnowFill /> : null
                     }</span>
                     <p>{weather.weather[0].description}</p>
                 </div>
@@ -78,7 +78,7 @@ export default function DataWeather({ weather, time, date, setCity, Weather,city
 const ContainerWeather = styled(Container)`
     background: linear-gradient(270deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.4) 100%);
     box-shadow: 2px 2px 13px rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(34px);
+    backdrop-filter: blur(15px);
     margin-top: 2%;
     padding: 20px 0 50px 0;
     .dataWeather{
