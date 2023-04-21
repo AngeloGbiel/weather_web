@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import * as Bs from 'react-icons/bs'
 import * as Ri from 'react-icons/ri'
@@ -35,7 +35,7 @@ export default function DataWeather({ weather, time, date, setCity, Weather, cit
     return (
         <ContainerWeather fixed maxWidth={'xs'}>
             <Stack marginBottom={5} spacing={2} direction="row" margin='normal'>
-                <TextField value={city} onKeyDown={(key) => Enter(key)} onChange={(e) => setCity(e.target.value)} fullWidth size='small' id="outlined-basic" label="Outlined" variant="outlined" />
+                <TextField value={city} onKeyDown={(key) => Enter(key)} onChange={(e) => setCity(e.target.value)} fullWidth size='small' id="outlined-basic" label="Area" variant="outlined" />
                 <Button variant="contained" size='small'>
                     <Bs.BsSearch onClick={Search} />
                 </Button>
@@ -122,12 +122,10 @@ const ContainerWeather = styled(Container)`
         flex-direction: column;
         gap: .5rem;
         .weatherFeelsLikeHumidity,.weatherVisibilityWind{
-            /* background-color: red; */
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 5%;
         }
-
     }
 `
