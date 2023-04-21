@@ -4,7 +4,6 @@ import DataWeather from "./components/DataWeather";
 import { Data } from "./components/config";
 import { ThemeProvider } from "styled-components";
 export default function App() {
-  // const REACT_APP_MY_KEY_WEATHER = process.env.REACT_APP_MY_KEY_WEATHER
   const [city, setCity] = useState<string>("")
   const [weather, setWeather] = useState()
   const [time, setTime] = useState('')
@@ -15,7 +14,6 @@ export default function App() {
   const NewDate = (Timezone:number) =>{
     const date = new Date()
     let h = date.getUTCHours() +Timezone
-    // console.log(h)
     let m = date.getMinutes() //pegar o horário de Greenwich 
     let s = date.getSeconds()
     let day = date.getUTCDate()
@@ -27,9 +25,8 @@ export default function App() {
       day++
       dayofweek++
     }
-    if(h>0){
+    if(h<0){
       h=23
-      // console.log('test1')
     }
     switch (dayofweek) {
       case 1:
