@@ -14,6 +14,7 @@ export default function App() {
   const NewDate = (Timezone:number) =>{
     const date = new Date()
     let h = date.getUTCHours() +Timezone
+    console.log(h)
     let m = date.getMinutes() //pegar o horário de Greenwich 
     let s = date.getSeconds()
     let day = date.getUTCDate()
@@ -27,6 +28,7 @@ export default function App() {
     }
     if(h<0){
       h=23
+      console.log('test1')
     }
     switch (dayofweek) {
       case 1:
@@ -78,22 +80,6 @@ export default function App() {
     positionCurrent()
   }, [])
 
-
-  type WeatherConditions = {
-    [key: string]: { img: string };
-  };
-  interface Props{
-    // Data:{
-    //   [key:string]:{
-    //     img:string
-    //   }
-    // }
-    weather:{[key:number]:{main:string}}
-  }
-  type tipo = {
-    weather:{[key:number]:{main:string}}
-  }
-
   const backGround = (resWeather:{weather:{[key:number]:{main:string}}},data:{[key: string]: { img: string };})=>{
     const opc = resWeather.weather[0].main
     const imgWeather = data[opc].img
@@ -111,7 +97,6 @@ export default function App() {
       positionCurrent()
       alert('Digite o nome corretamente (sem usar vírgulas)')
     }
-
   }
   return (
     <ThemeProvider theme={{photo}}>
