@@ -1,12 +1,9 @@
 import { createGlobalStyle } from "styled-components";
-
-
 interface Props{
     theme:{
         photo:string
     }
 }
-
 export const CSSreset = createGlobalStyle<Props>`
     *{
         margin:0;
@@ -23,6 +20,6 @@ export const CSSreset = createGlobalStyle<Props>`
         @media (max-width:500px){
             background: #278AFF;
         }
-        /* background-position: center; */
+        background-position: center;
     }
 `
