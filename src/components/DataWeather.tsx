@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import * as Bs from 'react-icons/bs'
 import * as Ri from 'react-icons/ri'
@@ -24,18 +24,26 @@ interface Props {
 export default function DataWeather({ weather, time, date, setCity, Weather, city }: Props) {
     const Enter = (key: React.KeyboardEvent<HTMLDivElement>) => {
         if (key.key == 'Enter') {
+            if(city==''){
+                alert('digite alguma coisa')
+            }else{
+                Weather()
+                setCity('')
+            }
+        }
+    }
+    const Search = () => {
+        if(city==''){
+            alert('digite alguma coisa')
+        }else{
             Weather()
             setCity('')
         }
     }
-    const Search = () => {
-        Weather()
-        setCity('')
-    }
     return (
         <ContainerWeather fixed maxWidth={'xs'}>
             <Stack marginBottom={5} spacing={2} direction="row" margin='normal'>
-                <TextField value={city} onKeyDown={(key) => Enter(key)} onChange={(e) => setCity(e.target.value)} fullWidth size='small' id="outlined-basic" label="Outlined" variant="outlined" />
+                <TextField value={city} onKeyDown={(key) => Enter(key)} onChange={(e) => setCity(e.target.value)} fullWidth size='small' id="outlined-basic" label="Area" variant="outlined" />
                 <Button variant="contained" size='small'>
                     <Bs.BsSearch onClick={Search} />
                 </Button>
@@ -58,14 +66,14 @@ export default function DataWeather({ weather, time, date, setCity, Weather, cit
                 </div>
                 <div className='weatherInfo'>
                     <div className='weatherFeelsLikeHumidity'>
-                        <p>Feels Like: {Math.round(weather.main.feels_like)}°C</p>
+                        <p>Sensação: {Math.round(weather.main.feels_like)}°C</p>
                         <p>|</p>
-                        <p>humidity: {weather.main.humidity}%</p>
+                        <p>Humidade: {weather.main.humidity}%</p>
                     </div>
                     <div className='weatherVisibilityWind'>
-                        <p>Visibility: {(weather.visibility / 1000).toFixed(1)}km</p> {/*Deixar o valor como 10.0 (cada valor passado dentro do "toFixed" é q quantidade de números depois da vírgula) */}
+                        <p>Visibilidade: {(weather.visibility / 1000).toFixed(1)}km</p> {/*Deixar o valor como 10.0 (cada valor passado dentro do "toFixed" é q quantidade de números depois da vírgula) */}
                         <p>|</p>
-                        <p>Wind: {(weather.wind.speed).toFixed(1)}m/s</p>
+                        <p>Vento: {(weather.wind.speed).toFixed(1)}m/s</p>
                     </div>
                 </div>
             </div> : <Grid container direction="row" justifyContent="center" alignItems="center"> {/*centralizar algo com o grid */}
@@ -81,6 +89,7 @@ const ContainerWeather = styled(Container)`
     backdrop-filter: blur(15px);
     margin-top: 2%;
     padding: 20px 0 50px 0;
+    z-index: 99;
     .dataWeather{
         display: flex;
         flex-direction: column;
@@ -122,12 +131,10 @@ const ContainerWeather = styled(Container)`
         flex-direction: column;
         gap: .5rem;
         .weatherFeelsLikeHumidity,.weatherVisibilityWind{
-            /* background-color: red; */
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 5%;
         }
-
     }
 `

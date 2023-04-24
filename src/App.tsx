@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { CSSreset } from "./components/CSSreset";
 import DataWeather from "./components/DataWeather";
-import { Data } from "./components/config";
 import { ThemeProvider } from "styled-components";
+import BackGround from "./components/background";
+
+
 export default function App() {
-  // const REACT_APP_MY_KEY_WEATHER = process.env.REACT_APP_MY_KEY_WEATHER
   const [city, setCity] = useState<string>("")
   const [weather, setWeather] = useState()
   const [time, setTime] = useState('')
   const [date, setDate] = useState('')
   const Key = "d87de9bc51b347eff2b1eb6d3b66146c"
-  const [photo,setPhoto]=useState<string>('')
+  const [photo, setPhoto] = useState<string>('')
 
-  const NewDate = (Timezone:number) =>{
+  const NewDate = (Timezone: number) => {
     const date = new Date()
-    let h = date.getUTCHours() +Timezone
-    // console.log(h)
-    let m = date.getMinutes() //pegar o horário de Greenwich 
+    let h = date.getUTCHours() + Timezone //pegar o horário de Greenwich 
+    let m = date.getMinutes() 
     let s = date.getSeconds()
     let day = date.getUTCDate()
     let month = date.getUTCMonth()
@@ -27,9 +27,8 @@ export default function App() {
       day++
       dayofweek++
     }
-    if(h>0){
-      h=23
-      // console.log('test1')
+    if (h < 0) {
+      h = 23
     }
     switch (dayofweek) {
       case 1:
@@ -71,7 +70,6 @@ export default function App() {
               const Timezone = dataWeather.timezone / 3600;
               NewDate(Timezone)
               setWeather(dataWeather)
-              backGround(dataWeather,Data)
             })
         })
     });
@@ -81,44 +79,27 @@ export default function App() {
     positionCurrent()
   }, [])
 
-
-  type WeatherConditions = {
-    [key: string]: { img: string };
-  };
-  interface Props{
-    // Data:{
-    //   [key:string]:{
-    //     img:string
-    //   }
-    // }
-    weather:{[key:number]:{main:string}}
-  }
-  type tipo = {
-    weather:{[key:number]:{main:string}}
-  }
-
-  const backGround = (resWeather:{weather:{[key:number]:{main:string}}},data:{[key: string]: { img: string };})=>{
+  const backGround = (resWeather: { weather: { [key: number]: { main: string } } }, data: { [key: string]: { img: string }; }) => {
     const opc = resWeather.weather[0].main
     const imgWeather = data[opc].img
     setPhoto(imgWeather)
   }
-  const Weather = async() => {
+  const Weather = async () => {
     const DataWeather = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${Key}&lang=pt_br`)
     const resWeather = await DataWeather.json()
     if (resWeather.cod != '404') {
       setWeather(resWeather)
       const Timezone = resWeather.timezone / 3600;
       NewDate(Timezone)
-      backGround(resWeather,Data)
     } else {
       positionCurrent()
       alert('Digite o nome corretamente (sem usar vírgulas)')
     }
-
   }
   return (
-    <ThemeProvider theme={{photo}}>
+    <ThemeProvider theme={{ photo }}>
       <CSSreset />
+      {weather != undefined? <BackGround weather={weather}/> :null}
       <DataWeather city={city} setCity={setCity} date={date} Weather={Weather} time={time} weather={weather || ""} />
     </ThemeProvider>
   )
