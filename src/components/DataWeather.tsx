@@ -24,13 +24,21 @@ interface Props {
 export default function DataWeather({ weather, time, date, setCity, Weather, city }: Props) {
     const Enter = (key: React.KeyboardEvent<HTMLDivElement>) => {
         if (key.key == 'Enter') {
-            Weather()
-            setCity('')
+            if(city==''){
+                alert('digite alguma coisa')
+            }else{
+                Weather()
+                setCity('')
+            }
         }
     }
     const Search = () => {
-        Weather()
-        setCity('')
+        if(city==''){
+            alert('digite alguma coisa')
+        }else{
+            Weather()
+            setCity('')
+        }
     }
     return (
         <ContainerWeather fixed maxWidth={'xs'}>
@@ -58,14 +66,14 @@ export default function DataWeather({ weather, time, date, setCity, Weather, cit
                 </div>
                 <div className='weatherInfo'>
                     <div className='weatherFeelsLikeHumidity'>
-                        <p>Feels Like: {Math.round(weather.main.feels_like)}°C</p>
+                        <p>Sensação: {Math.round(weather.main.feels_like)}°C</p>
                         <p>|</p>
-                        <p>humidity: {weather.main.humidity}%</p>
+                        <p>Humidade: {weather.main.humidity}%</p>
                     </div>
                     <div className='weatherVisibilityWind'>
-                        <p>Visibility: {(weather.visibility / 1000).toFixed(1)}km</p> {/*Deixar o valor como 10.0 (cada valor passado dentro do "toFixed" é q quantidade de números depois da vírgula) */}
+                        <p>Visibilidade: {(weather.visibility / 1000).toFixed(1)}km</p> {/*Deixar o valor como 10.0 (cada valor passado dentro do "toFixed" é q quantidade de números depois da vírgula) */}
                         <p>|</p>
-                        <p>Wind: {(weather.wind.speed).toFixed(1)}m/s</p>
+                        <p>Vento: {(weather.wind.speed).toFixed(1)}m/s</p>
                     </div>
                 </div>
             </div> : <Grid container direction="row" justifyContent="center" alignItems="center"> {/*centralizar algo com o grid */}
@@ -81,6 +89,7 @@ const ContainerWeather = styled(Container)`
     backdrop-filter: blur(15px);
     margin-top: 2%;
     padding: 20px 0 50px 0;
+    z-index: 99;
     .dataWeather{
         display: flex;
         flex-direction: column;
